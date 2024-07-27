@@ -1,4 +1,8 @@
-export const initialIngredients = [
+export type InitialIngredient = {
+  name: string;
+};
+
+export const initialIngredients: InitialIngredient[] = [
   { name: "Argent" },
   { name: "Bave de lama" },
   { name: "Épine de hérisson" },
