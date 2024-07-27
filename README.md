@@ -13,9 +13,29 @@ Install dependencies:
 npm install
 ```
 
+## Configure environment
+
+Create a `.env` file base on `.env.example`.
+
+## Migrate database
+
+Apply database migration scripts to the the database:
+
+```
+make migrate-database
+```
+
+## Seed database
+
+Seed initial ingredients and recipes to the database:
+
+```
+make seed-database
+```
+
 ## Run tests
 
-Run tests against an isolated database (`prisma/db.test.sqlite`):
+Run tests against an isolated, disposable database (`prisma/db.test.sqlite`):
 
 ```
 make test:watch
