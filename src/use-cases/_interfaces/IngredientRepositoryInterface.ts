@@ -1,6 +1,7 @@
 import { Ingredient } from "@prisma/client";
 
 export interface IngredientRepositoryInterface {
+  findIngredients(): Promise<Ingredient[]>;
   createIngredientIfNotExisting(
     name: string,
     quantity: number

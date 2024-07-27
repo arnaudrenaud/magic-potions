@@ -1,12 +1,16 @@
 import { prismaClient } from "@/adapters/prismaClient";
+import { Ingredient } from "@/domain/Ingredient/Ingredient";
 import { INGREDIENT_EXCEPTIONS } from "@/domain/Ingredient/ingredient-exceptions";
 import { IngredientRepositoryInterface } from "@/use-cases/_interfaces/IngredientRepositoryInterface";
-import { Ingredient } from "@prisma/client";
 
 export default class PrismaIngredientRepository
   implements IngredientRepositoryInterface
 {
   client = prismaClient;
+
+  findIngredients(): Promise<Ingredient[]> {
+    return this.client.ingredient.findMany();
+  }
 
   createIngredientIfNotExisting(
     name: string,
