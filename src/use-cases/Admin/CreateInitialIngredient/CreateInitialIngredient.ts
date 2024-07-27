@@ -1,4 +1,5 @@
 import { InitialIngredient } from "@/domain/constants/initial-ingredients";
+import { INGREDIENT_INITIAL_QUANTITY } from "@/domain/Ingredient/Ingredient";
 import { IngredientRepositoryInterface } from "@/use-cases/_interfaces/IngredientRepositoryInterface";
 
 export default class CreateInitialIngredient {
@@ -9,7 +10,7 @@ export default class CreateInitialIngredient {
   async run(ingredient: InitialIngredient) {
     return this.prismaIngredientRepository.createIngredientIfNotExisting(
       ingredient.name,
-      1
+      INGREDIENT_INITIAL_QUANTITY
     );
   }
 }

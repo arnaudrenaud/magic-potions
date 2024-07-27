@@ -3,6 +3,7 @@
  */
 
 import { clearDatabase } from "@/adapters/prismaClient";
+import { INGREDIENT_INITIAL_QUANTITY } from "@/domain/Ingredient/Ingredient";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import PrismaIngredientRepository from "@/infrastructure/repositories/prisma/PrismaIngredientRepository";
 import PrismaRecipeRepository from "@/infrastructure/repositories/prisma/PrismaRecipeRepository";
@@ -92,21 +93,21 @@ describe("DiscoverRecipe", () => {
               "Basilic"
             )
           ).quantity
-        ).toEqual(0);
+        ).toEqual(INGREDIENT_INITIAL_QUANTITY - 1);
         expect(
           (
             await prismaIngredientRepository.findIngredientByNameOrThrow(
               "Persil"
             )
           ).quantity
-        ).toEqual(0);
+        ).toEqual(INGREDIENT_INITIAL_QUANTITY - 1);
         expect(
           (
             await prismaIngredientRepository.findIngredientByNameOrThrow(
               "Coriandre"
             )
           ).quantity
-        ).toEqual(0);
+        ).toEqual(INGREDIENT_INITIAL_QUANTITY - 1);
       });
     });
   });
