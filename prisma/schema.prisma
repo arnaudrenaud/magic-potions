@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Ingredient {
+  id       String @id @default(cuid())
+  name     String @unique
+  quantity Int
+
+  recipesWithIngredient IngredientInRecipe[]
+}
+
+model Recipe {
+  id           String  @id @default(cuid())
+  name         String  @unique
+  isDiscovered Boolean
+
+  ingredientsInRecipe IngredientInRecipe[]
+}
+
+model IngredientInRecipe {
+  id String @id @default(cuid())
+
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId String
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
+
+  @@unique([ingredientId, recipeId])
+}
