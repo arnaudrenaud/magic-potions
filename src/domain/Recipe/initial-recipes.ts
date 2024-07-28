@@ -38,6 +38,6 @@ export const initialRecipes: InitialRecipe[] = [
   },
   {
     name: "Potion de Transformation",
-    ingredientNames: ["Or", "Yttrium", "Mandragore"],
+    ingredientNames: ["Queue d'écureuil", "Yttrium", "Épine de hérisson"],
   },
 ];
