@@ -1,29 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Ingredient } from "@/domain/Ingredient/Ingredient";
-import { useFormState } from "react-dom";
-import { SubmitButton } from "@/components/actions/SubmitButton";
-import { Recipe } from "@/domain/Recipe/Recipe";
+import { useMutation } from "@tanstack/react-query";
 
-export type SelectIngredientsResponse = {
-  discoveredRecipe?: Recipe;
-  errorMessage?: string;
-};
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { discoverRecipe } from "@/app/api-queries/discoverRecipe";
 
 export function SelectIngredients({
   ingredients,
-  onSubmit,
 }: {
   ingredients: Ingredient[];
-  onSubmit: (ingredientIds: string[]) => Promise<any>;
 }) {
   const [selection, setSelection] = useState<{
     [ingredientId: string]: boolean;
   }>({});
-
   const toggleIngredientSelected = (ingredientId: string) => {
     setSelection({
       ...selection,
@@ -31,30 +26,41 @@ export function SelectIngredients({
     });
   };
 
-  const getSelectedIngredients = () => {
+  const getSelectedIngredientIds = () => {
     return Object.entries(selection)
       .filter(([_id, isSelected]) => isSelected)
       .map(([id]) => id);
   };
 
-  const [formState, submit] = useFormState<SelectIngredientsResponse | null>(
-    onSubmit.bind(null, getSelectedIngredients()),
-    null
-  );
-
-  const [newlyDiscoveredRecipe, setNewlyDiscoveredRecipe] =
-    useState<Recipe | null>(null);
-
-  useEffect(() => {
-    if (formState && formState.discoveredRecipe) {
-      setNewlyDiscoveredRecipe(formState.discoveredRecipe);
-    }
-  }, [formState]);
+  const router = useRouter();
+  const { toast } = useToast();
+  const mutationSubmission = useMutation({
+    mutationFn: discoverRecipe,
+    onSuccess: ({ discoveredRecipe }) => {
+      router.refresh();
+      toast({
+        title: "Bravo !",
+        description: `Vous avez découvert la ${discoveredRecipe.name}.`,
+      });
+    },
+    onError: ({ message }) => {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: message,
+      });
+    },
+  });
 
   return (
     <main className="m-auto max-w-6xl p-8 flex flex-col justify-center gap-4">
       Composez une potion connue ou inédite en sélectionnant trois ingrédients :
-      <form action={submit}>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          mutationSubmission.mutate(getSelectedIngredientIds());
+        }}
+      >
         <ul className="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {ingredients.map(({ id, name, quantity }) => (
             <li
@@ -76,9 +82,12 @@ export function SelectIngredients({
             </li>
           ))}
         </ul>
-        <SubmitButton className="fixed right-6 bottom-16 p-8 text-lg">
+        <Button
+          className="fixed right-6 bottom-16 p-8 text-lg"
+          disabled={mutationSubmission.isPending}
+        >
           Valider
-        </SubmitButton>
+        </Button>
       </form>
     </main>
   );
