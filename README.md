@@ -15,11 +15,11 @@ npm install
 
 ## Configure environment
 
-Create a `.env` file base on `.env.example`.
+Create a `.env` file based on `.env.example`.
 
 ## Migrate database
 
-Apply database migration scripts to the the database:
+Apply database migration scripts to the database:
 
 ```
 make migrate-database
