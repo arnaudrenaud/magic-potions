@@ -7,17 +7,17 @@ Dependencies :
 
 ## Getting started
 
-Install dependencies:
+### Install dependencies
 
 ```
 npm install
 ```
 
-## Configure environment
+### Configure environment
 
 Create a `.env` file based on `.env.example`.
 
-## Migrate database
+### Migrate database
 
 Apply database migration scripts to the database:
 
@@ -25,12 +25,18 @@ Apply database migration scripts to the database:
 make migrate-database
 ```
 
-## Seed database
+### Seed database
 
 Seed initial ingredients and recipes to the database:
 
 ```
 make seed-database
+```
+
+### Start development server
+
+```
+make start-dev
 ```
 
 ## Run tests
