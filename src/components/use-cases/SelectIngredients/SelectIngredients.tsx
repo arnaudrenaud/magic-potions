@@ -10,6 +10,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { discoverRecipe } from "@/app/api-queries/discoverRecipe";
+import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
+import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
 
 export function SelectIngredients({
   ingredients,
@@ -34,6 +36,10 @@ export function SelectIngredients({
 
   const router = useRouter();
   const { toast } = useToast();
+
+  const [shouldShowCreateRecipeDialog, setShouldShowCreateRecipeDialog] =
+    useState(false);
+
   const mutationSubmission = useMutation({
     mutationFn: discoverRecipe,
     onSuccess: ({ discoveredRecipe }) => {
@@ -44,11 +50,18 @@ export function SelectIngredients({
       });
     },
     onError: ({ message }) => {
-      toast({
-        variant: "destructive",
-        title: "Erreur",
-        description: message,
-      });
+      if (
+        message ===
+        RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED.message
+      ) {
+        setShouldShowCreateRecipeDialog(true);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: message,
+        });
+      }
     },
   });
 
@@ -89,6 +102,16 @@ export function SelectIngredients({
           Valider
         </Button>
       </form>
+      {shouldShowCreateRecipeDialog ? (
+        <CreateRecipe
+          onClose={() => {
+            setShouldShowCreateRecipeDialog(false);
+          }}
+          ingredients={ingredients.filter(({ id }) =>
+            getSelectedIngredientIds().includes(id)
+          )}
+        />
+      ) : null}
     </main>
   );
 }

@@ -1,16 +1,20 @@
 import { Recipe } from "@/domain/Recipe/Recipe";
 
-export const discoverRecipe = async (
-  ingredientIds: string[]
-): Promise<{
-  discoveredRecipe: Recipe;
+export const createUserRecipe = async ({
+  name,
+  ingredientIds,
+}: {
+  name: string;
+  ingredientIds: string[];
+}): Promise<{
+  createdRecipe: Recipe;
 }> => {
-  const response = await fetch("/api/recipes?action=discover", {
+  const response = await fetch("/api/recipes?action=create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ingredientIds }),
+    body: JSON.stringify({ name, ingredientIds }),
   });
 
   const responseBody = await response.json();

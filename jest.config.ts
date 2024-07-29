@@ -12,7 +12,7 @@ const config: Config = {
   testEnvironment: "jsdom",
   globalSetup: "<rootDir>/jest.global-setup.ts",
   // Add more setup options before each test is run
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup-after-env.ts"],
   clearMocks: true,
 };
 
