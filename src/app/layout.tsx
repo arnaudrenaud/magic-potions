@@ -27,7 +27,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            <div className="m-auto max-w-6xl p-8">{children}</div>
+          </ReactQueryProvider>
           <Toaster />
         </ThemeProvider>
       </body>

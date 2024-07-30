@@ -1,11 +1,31 @@
 import { prismaClient } from "@/adapters/prismaClient";
-import { Recipe } from "@/domain/Recipe/Recipe";
+import { Recipe, RecipeWithIngredients } from "@/domain/Recipe/Recipe";
 import { RecipeRepositoryInterface } from "@/use-cases/_interfaces/RecipeRepositoryInterface";
 
 export default class PrismaRecipeRepository
   implements RecipeRepositoryInterface
 {
   client = prismaClient;
+
+  async findRecipesWithIngredients(): Promise<
+    (Recipe & RecipeWithIngredients)[]
+  > {
+    const recipes = await this.client.recipe.findMany({
+      include: {
+        ingredientsInRecipe: {
+          include: {
+            ingredient: { select: { id: true, name: true, quantity: true } },
+          },
+        },
+      },
+    });
+    return recipes.map((recipe) => ({
+      ...recipe,
+      ingredients: recipe.ingredientsInRecipe.map((ingredientInRecipe) => ({
+        ...ingredientInRecipe.ingredient,
+      })),
+    }));
+  }
 
   findRecipeByName(name: string): Promise<Recipe | null> {
     return this.client.recipe.findUnique({

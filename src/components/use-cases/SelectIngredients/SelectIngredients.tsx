@@ -66,7 +66,7 @@ export function SelectIngredients({
   });
 
   return (
-    <main className="m-auto max-w-6xl p-8 flex flex-col justify-center gap-4">
+    <main className="flex flex-col justify-center gap-4">
       Composez une potion connue ou inédite en sélectionnant trois ingrédients :
       <form
         onSubmit={(event) => {

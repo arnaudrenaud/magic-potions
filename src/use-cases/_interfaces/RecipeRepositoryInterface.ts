@@ -1,6 +1,7 @@
-import { Recipe } from "@/domain/Recipe/Recipe";
+import { Recipe, RecipeWithIngredients } from "@/domain/Recipe/Recipe";
 
 export interface RecipeRepositoryInterface {
+  findRecipesWithIngredients(): Promise<(Recipe & RecipeWithIngredients)[]>;
   findRecipeByName(name: string): Promise<Recipe | null>;
   findRecipeByIngredientIds(ingredientIds: string[]): Promise<Recipe | null>;
   setRecipeToDiscovered(id: string): Promise<Recipe>;
