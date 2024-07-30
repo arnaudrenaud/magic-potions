@@ -67,7 +67,7 @@ export function SelectIngredients({
 
   return (
     <main className="flex flex-col justify-center gap-4">
-      Composez une potion classique ou créez la vôtre en sélectionnant trois
+      Découvrez une potion classique ou créez la vôtre en sélectionnant trois
       ingrédients :
       <form
         onSubmit={(event) => {
@@ -97,7 +97,7 @@ export function SelectIngredients({
           ))}
         </ul>
         <Button
-          className="fixed right-6 bottom-16 p-8 text-lg"
+          className="fixed right-4 lg:right-10 bottom-20 lg:bottom-24 p-8 text-lg"
           disabled={mutationSubmission.isPending}
         >
           Valider
