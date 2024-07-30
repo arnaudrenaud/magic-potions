@@ -13,7 +13,7 @@ export default async function Discoveries() {
   return (
     <ul className="w-full grid lg:grid-cols-2 gap-8">
       <div className="w-full grid gap-4">
-        Recettes classiques :
+        Potions classiques :
         {initialRecipes.map((recipe) => (
           <li key={recipe.id} className="w-full p-3 rounded bg-secondary grid">
             {recipe.isDiscovered ? (
@@ -30,7 +30,7 @@ export default async function Discoveries() {
         ))}
       </div>
       <div className="w-full grid gap-4 content-baseline">
-        Recettes créées :
+        Potions créées :
         {userCreatedRecipes.length ? (
           userCreatedRecipes.map((recipe) => (
             <li
