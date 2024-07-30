@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 import { Toaster } from "@/components/ui/toaster";
+import Navigation from "@/components/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ReactQueryProvider>
-            <div className="m-auto max-w-6xl p-8">{children}</div>
+            <Navigation />
+            <div className="m-auto max-w-6xl p-6 pb-[80px] md:p-8 md:pb-[88px] lg:pb-0 lg:pl-[200px]">
+              {children}
+            </div>
           </ReactQueryProvider>
           <Toaster />
         </ThemeProvider>
