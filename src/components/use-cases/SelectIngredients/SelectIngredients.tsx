@@ -67,7 +67,8 @@ export function SelectIngredients({
 
   return (
     <main className="flex flex-col justify-center gap-4">
-      Composez une potion connue ou inédite en sélectionnant trois ingrédients :
+      Composez une potion classique ou créez la vôtre en sélectionnant trois
+      ingrédients :
       <form
         onSubmit={(event) => {
           event.preventDefault();
