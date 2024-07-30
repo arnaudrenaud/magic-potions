@@ -4,6 +4,7 @@ export type Recipe = {
   id: string;
   name: string;
   isDiscovered: boolean;
+  isInitial: boolean;
 };
 
 export type RecipeWithIngredients = Recipe & {

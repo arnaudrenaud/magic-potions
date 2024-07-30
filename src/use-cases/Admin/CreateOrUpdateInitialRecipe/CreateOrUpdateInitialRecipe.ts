@@ -39,10 +39,11 @@ export default class CreateOrUpdateInitialRecipe {
       );
     }
 
-    return this.recipeRepository.createRecipe(
-      recipe.name,
-      false,
-      ingredientIds
-    );
+    return this.recipeRepository.createRecipe({
+      name: recipe.name,
+      isDiscovered: false,
+      isInitial: true,
+      ingredientIds,
+    });
   }
 }

@@ -117,6 +117,7 @@ describe("CreateUserRecipe", () => {
       );
 
       expect(createdRecipe.isDiscovered).toEqual(true);
+      expect(createdRecipe.isInitial).toEqual(false);
 
       expect(
         (

@@ -57,6 +57,7 @@ describe("CreateOrUpdateInitialRecipe", () => {
         data: {
           name: "Mélange d'herbes",
           isDiscovered: false,
+          isInitial: true,
           ingredientsInRecipe: {
             create: [
               { ingredientId: basilic.id },
@@ -175,11 +176,11 @@ describe("CreateOrUpdateInitialRecipe", () => {
             name: "Nouveau nom",
             ingredientNames: ["Basilic", "Persil", "Coriandre"],
           })
-        ).toEqual(
-          await prismaRecipeRepository.client.recipe.findUnique({
-            where: { name: "Nouveau nom" },
-          })
-        );
+        ).toMatchObject({
+          name: "Nouveau nom",
+          isDiscovered: false,
+          isInitial: true,
+        });
       });
     });
   });

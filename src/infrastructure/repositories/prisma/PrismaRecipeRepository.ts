@@ -50,15 +50,22 @@ export default class PrismaRecipeRepository
     });
   }
 
-  async createRecipe(
-    name: string,
-    isDiscovered: boolean,
-    ingredientIds: string[]
-  ): Promise<Recipe> {
+  async createRecipe({
+    name,
+    isDiscovered,
+    isInitial,
+    ingredientIds,
+  }: {
+    name: string;
+    isDiscovered: boolean;
+    isInitial?: boolean;
+    ingredientIds: string[];
+  }): Promise<Recipe> {
     return this.client.recipe.create({
       data: {
         name,
         isDiscovered,
+        ...(isInitial && { isInitial }),
         ingredientsInRecipe: {
           create: ingredientIds.map((ingredientId) => ({
             ingredientId,

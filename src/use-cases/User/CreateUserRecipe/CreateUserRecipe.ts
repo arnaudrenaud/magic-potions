@@ -30,11 +30,11 @@ export default class CreateUserRecipe {
     }
 
     // TODO: wrap recipe creation and ingredient decrementation inside a transaction
-    const newRecipe = await this.recipeRepository.createRecipe(
+    const newRecipe = await this.recipeRepository.createRecipe({
       name,
-      true,
-      ingredientIds
-    );
+      isDiscovered: true,
+      ingredientIds,
+    });
     for (const ingredientId of ingredientIds) {
       await this.ingredientRepository.decrementIngredientQuantity(ingredientId);
     }

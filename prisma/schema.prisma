@@ -25,6 +25,7 @@ model Recipe {
   id           String  @id @default(cuid())
   name         String  @unique
   isDiscovered Boolean
+  isInitial    Boolean @default(false)
 
   ingredientsInRecipe IngredientInRecipe[]
 }

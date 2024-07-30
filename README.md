@@ -10,7 +10,7 @@ Dependencies :
 ### Install dependencies
 
 ```
-npm install
+make install
 ```
 
 ### Configure environment
@@ -37,6 +37,14 @@ make seed-database
 
 ```
 make start-dev
+```
+
+### Generate and apply new database migration
+
+After updating database schema (`prisma/schema.prisma`):
+
+```
+make generate-migrate-database
 ```
 
 ## Run tests
