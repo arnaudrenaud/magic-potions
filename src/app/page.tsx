@@ -10,3 +10,7 @@ export default async function Home() {
 
   return <SelectIngredients ingredients={ingredients} />;
 }
+
+export const metadata = {
+  title: `Composition • Magic Potions`,
+};

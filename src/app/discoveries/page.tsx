@@ -59,3 +59,7 @@ export default async function Discoveries() {
     </main>
   );
 }
+
+export const metadata = {
+  title: `Découvertes • Magic Potions`,
+};

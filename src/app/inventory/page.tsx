@@ -10,3 +10,7 @@ export default async function Inventory() {
 
   return <ManageInventory ingredients={ingredients} />;
 }
+
+export const metadata = {
+  title: `Inventaire • Magic Potions`,
+};
