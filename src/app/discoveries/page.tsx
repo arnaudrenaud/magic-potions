@@ -52,7 +52,7 @@ export default async function Discoveries() {
           </ul>
         ) : (
           <div className="text-muted-foreground italic">
-            Aucune recette créée pour l'instant.
+            Aucune potion créée pour l'instant.
           </div>
         )}
       </div>

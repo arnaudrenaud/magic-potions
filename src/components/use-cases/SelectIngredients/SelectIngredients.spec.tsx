@@ -191,7 +191,7 @@ describe("SelectIngredients", () => {
       await waitFor(() => {
         expect(mockToast).toHaveBeenCalledWith({
           title: "Bravo !",
-          description: "Vous avez découvert la Potion existante.",
+          description: "Vous avez découvert la Potion existante",
         });
       });
 

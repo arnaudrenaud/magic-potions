@@ -129,7 +129,7 @@ describe("CreateRecipe", () => {
       await waitFor(() => {
         expect(mockToast).toHaveBeenCalledWith({
           title: "Potion créée",
-          description: "Vous avez créé la Nouvelle potion.",
+          description: "Vous avez créé la Nouvelle potion",
         });
       });
     });

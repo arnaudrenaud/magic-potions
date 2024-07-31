@@ -49,7 +49,7 @@ export function CreateRecipe({
       onSuccess();
       toast({
         title: "Potion créée",
-        description: `Vous avez créé la ${createdRecipe.name}.`,
+        description: `Vous avez créé la ${createdRecipe.name}`,
       });
     },
     onError: ({ message }) => {

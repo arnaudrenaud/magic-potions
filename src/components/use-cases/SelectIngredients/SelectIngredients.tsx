@@ -60,7 +60,7 @@ export function SelectIngredients({
       router.refresh();
       toast({
         title: "Bravo !",
-        description: `Vous avez découvert la ${discoveredRecipe.name}.`,
+        description: `Vous avez découvert la ${discoveredRecipe.name}`,
       });
       setSelection({});
     },
