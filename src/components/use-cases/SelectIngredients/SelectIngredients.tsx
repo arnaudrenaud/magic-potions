@@ -98,13 +98,16 @@ export function SelectIngredients({
           ))}
         </ul>
         <Button
-          className="fixed right-4 lg:right-10 bottom-20 lg:bottom-24 p-8 text-lg"
+          className="fixed right-4 lg:right-10 bottom-20 lg:bottom-24 w-36 h-16"
           disabled={
             mutationSubmission.isPending ||
             getSelectedIngredientIds().length < 3
           }
         >
-          Valider
+          <div className="text-xs">
+            ({getSelectedIngredientIds().length}/3){" "}
+            <span className="text-lg">Valider</span>
+          </div>
         </Button>
       </form>
       {shouldShowCreateRecipeDialog ? (
