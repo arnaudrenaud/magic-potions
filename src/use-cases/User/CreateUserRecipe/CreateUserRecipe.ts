@@ -1,8 +1,10 @@
+import { INGREDIENT_EXCEPTIONS } from "@/domain/Ingredient/ingredient-exceptions";
 import { Recipe } from "@/domain/Recipe/Recipe";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import { ValidateRecipe } from "@/domain/Recipe/ValidateRecipe";
 import { IngredientRepositoryInterface } from "@/use-cases/_interfaces/IngredientRepositoryInterface";
 import { RecipeRepositoryInterface } from "@/use-cases/_interfaces/RecipeRepositoryInterface";
+import AreIngredientQuantitiesSufficient from "@/use-cases/_utils/AreIngredientQuantitiesSufficient";
 
 export const EXCEPTION_RECIPE_MUST_HAVE_A_NAME =
   "EXCEPTION_RECIPE_MUST_HAVE_A_NAME";
@@ -17,6 +19,15 @@ export default class CreateUserRecipe {
 
   async run(name: string, ingredientIds: string[]): Promise<Recipe> {
     new ValidateRecipe().run(name, ingredientIds.length);
+    const areIngredientQuantitiesSufficient =
+      await new AreIngredientQuantitiesSufficient(
+        this.ingredientRepository
+      ).run(ingredientIds, 1);
+    if (!areIngredientQuantitiesSufficient) {
+      throw new Error(
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE.message
+      );
+    }
 
     if (await this.recipeRepository.findRecipeByName(name)) {
       throw new Error(

@@ -1,7 +1,9 @@
+import { INGREDIENT_EXCEPTIONS } from "@/domain/Ingredient/ingredient-exceptions";
 import { Recipe } from "@/domain/Recipe/Recipe";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import { IngredientRepositoryInterface } from "@/use-cases/_interfaces/IngredientRepositoryInterface";
 import { RecipeRepositoryInterface } from "@/use-cases/_interfaces/RecipeRepositoryInterface";
+import AreIngredientQuantitiesSufficient from "@/use-cases/_utils/AreIngredientQuantitiesSufficient";
 
 export default class DiscoverRecipe {
   constructor(
@@ -13,6 +15,15 @@ export default class DiscoverRecipe {
     if (ingredientIds.length !== 3) {
       throw new Error(
         RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message
+      );
+    }
+    const areIngredientQuantitiesSufficient =
+      await new AreIngredientQuantitiesSufficient(
+        this.ingredientRepository
+      ).run(ingredientIds, 1);
+    if (!areIngredientQuantitiesSufficient) {
+      throw new Error(
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE.message
       );
     }
 

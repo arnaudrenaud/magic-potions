@@ -4,6 +4,7 @@
 
 import { clearDatabase } from "@/adapters/prismaClient";
 import { INGREDIENT_INITIAL_QUANTITY } from "@/domain/Ingredient/Ingredient";
+import { INGREDIENT_EXCEPTIONS } from "@/domain/Ingredient/ingredient-exceptions";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import PrismaIngredientRepository from "@/infrastructure/repositories/prisma/PrismaIngredientRepository";
 import PrismaRecipeRepository from "@/infrastructure/repositories/prisma/PrismaRecipeRepository";
@@ -39,11 +40,33 @@ describe("CreateUserRecipe", () => {
     });
   });
 
+  describe("if some ingredients have no quantity left", () => {
+    it("throws exception INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE", async () => {
+      const basilic = await createInitialIngredient.run({ name: "Basilic" });
+      const persil = await createInitialIngredient.run({ name: "Persil" });
+      const coriandre = await createInitialIngredient.run({
+        name: "Coriandre",
+      });
+
+      await prismaIngredientRepository.client.ingredient.update({
+        where: { id: basilic.id },
+        data: { quantity: 0 },
+      });
+
+      await expect(
+        createUserRecipe.run("Nom", [basilic.id, persil.id, coriandre.id])
+      ).rejects.toThrow(
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE
+          .message
+      );
+    });
+  });
+
   describe("if recipe with the same name already exists", () => {
     it("throws error RECIPE_WITH_NAME_ALREADY_EXISTS", async () => {
-      await createInitialIngredient.run({ name: "Basilic" });
-      await createInitialIngredient.run({ name: "Persil" });
-      await createInitialIngredient.run({
+      const basilic = await createInitialIngredient.run({ name: "Basilic" });
+      const persil = await createInitialIngredient.run({ name: "Persil" });
+      const coriandre = await createInitialIngredient.run({
         name: "Coriandre",
       });
       await createInitialIngredient.run({
@@ -56,9 +79,9 @@ describe("CreateUserRecipe", () => {
 
       await expect(
         createUserRecipe.run("Nom de la recette existante", [
-          "Menthe",
-          "Basilic",
-          "Persil",
+          basilic.id,
+          persil.id,
+          coriandre.id,
         ])
       ).rejects.toThrow(
         RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS.message
