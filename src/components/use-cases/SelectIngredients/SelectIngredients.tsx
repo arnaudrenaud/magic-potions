@@ -109,6 +109,9 @@ export function SelectIngredients({
           onClose={() => {
             setShouldShowCreateRecipeDialog(false);
           }}
+          onSuccess={() => {
+            setSelection({});
+          }}
           ingredients={ingredients.filter(({ id }) =>
             getSelectedIngredientIds().includes(id)
           )}

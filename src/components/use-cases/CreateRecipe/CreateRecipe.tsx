@@ -28,9 +28,11 @@ import { useState } from "react";
 
 export function CreateRecipe({
   onClose,
+  onSuccess,
   ingredients,
 }: {
   onClose: () => void;
+  onSuccess: () => void;
   ingredients: Ingredient[];
 }) {
   const [step, setStep] = useState<"alert" | "form">("alert");
@@ -44,6 +46,7 @@ export function CreateRecipe({
     onSuccess: ({ createdRecipe }) => {
       router.refresh();
       onClose();
+      onSuccess();
       toast({
         title: "Potion créée",
         description: `Vous avez créé la ${createdRecipe.name}.`,

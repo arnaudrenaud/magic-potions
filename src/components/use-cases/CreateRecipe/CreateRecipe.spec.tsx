@@ -23,11 +23,16 @@ describe("CreateRecipe", () => {
   describe("when clicking cancel button", () => {
     it("closes modal", async () => {
       const onClose = jest.fn();
+      const onSuccess = jest.fn();
 
       const user = userEvent.setup();
       render(
         <ReactQueryProvider>
-          <CreateRecipe onClose={onClose} ingredients={[]} />
+          <CreateRecipe
+            onClose={onClose}
+            onSuccess={onSuccess}
+            ingredients={[]}
+          />
         </ReactQueryProvider>
       );
       await user.click(screen.getByText("Annuler"));
@@ -39,6 +44,7 @@ describe("CreateRecipe", () => {
   describe("when clicking continue button", () => {
     it("keeps modal open, shows form with ingredients", async () => {
       const onClose = jest.fn();
+      const onSuccess = jest.fn();
 
       const ingredients: Ingredient[] = [
         { id: "0", name: "Argent", quantity: 5 },
@@ -49,7 +55,11 @@ describe("CreateRecipe", () => {
       const user = userEvent.setup();
       render(
         <ReactQueryProvider>
-          <CreateRecipe onClose={onClose} ingredients={ingredients} />
+          <CreateRecipe
+            onClose={onClose}
+            onSuccess={onSuccess}
+            ingredients={ingredients}
+          />
         </ReactQueryProvider>
       );
       await user.click(screen.getByText("Continuer"));
@@ -69,8 +79,9 @@ describe("CreateRecipe", () => {
   });
 
   describe("when submitting form and server responds with success", () => {
-    it("closes modal, shows toast message with created recipe", async () => {
+    it("closes modal, shows toast message with created recipe, calls onSuccess", async () => {
       const onClose = jest.fn();
+      const onSuccess = jest.fn();
       mockCreateUserRecipe.mockResolvedValue({
         createdRecipe: {
           id: "1",
@@ -88,7 +99,11 @@ describe("CreateRecipe", () => {
       const user = userEvent.setup();
       render(
         <ReactQueryProvider>
-          <CreateRecipe onClose={onClose} ingredients={ingredients} />
+          <CreateRecipe
+            onClose={onClose}
+            onSuccess={onSuccess}
+            ingredients={ingredients}
+          />
         </ReactQueryProvider>
       );
       await user.click(screen.getByText("Continuer"));
@@ -109,6 +124,9 @@ describe("CreateRecipe", () => {
         expect(onClose).toHaveBeenCalled();
       });
       await waitFor(() => {
+        expect(onSuccess).toHaveBeenCalled();
+      });
+      await waitFor(() => {
         expect(mockToast).toHaveBeenCalledWith({
           title: "Potion créée",
           description: "Vous avez créé la Nouvelle potion.",
@@ -120,6 +138,7 @@ describe("CreateRecipe", () => {
   describe("when submitting form and server responds with error", () => {
     it("keeps modal open, shows error in form", async () => {
       const onClose = jest.fn();
+      const onSuccess = jest.fn();
       mockCreateUserRecipe.mockRejectedValue(
         new Error(RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS.message)
       );
@@ -133,7 +152,11 @@ describe("CreateRecipe", () => {
       const user = userEvent.setup();
       render(
         <ReactQueryProvider>
-          <CreateRecipe onClose={onClose} ingredients={ingredients} />
+          <CreateRecipe
+            onClose={onClose}
+            onSuccess={onSuccess}
+            ingredients={ingredients}
+          />
         </ReactQueryProvider>
       );
       await user.click(screen.getByText("Continuer"));
