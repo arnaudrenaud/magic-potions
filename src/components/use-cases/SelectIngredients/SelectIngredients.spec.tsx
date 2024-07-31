@@ -23,6 +23,22 @@ jest.mock("../../ui/use-toast", () => ({
 }));
 
 describe("SelectIngredients", () => {
+  describe("when an ingredient has quantity 0", () => {
+    it("displays disabled checkbox", async () => {
+      const user = userEvent.setup();
+      render(
+        <ReactQueryProvider>
+          <SelectIngredients
+            ingredients={[{ id: "0", name: "Argent", quantity: 0 }]}
+          />
+        </ReactQueryProvider>
+      );
+
+      await user.click(screen.getAllByRole("checkbox")[0]);
+      expect(screen.getAllByRole("checkbox")[0]).not.toBeChecked();
+    });
+  });
+
   describe("when less than three ingredients are selected", () => {
     it("displays disabled Submit button with selected count", async () => {
       const user = userEvent.setup();

@@ -13,6 +13,7 @@ import { discoverRecipe } from "@/app/api-queries/discoverRecipe";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
 import { NUMBER_OF_INGREDIENTS_IN_RECIPE } from "@/domain/Recipe/Recipe";
+import { cn } from "@/lib/utils";
 
 export function SelectIngredients({
   ingredients,
@@ -104,11 +105,23 @@ export function SelectIngredients({
                   toggleIngredientSelected(id);
                 }}
                 className="self-start"
+                disabled={!quantity}
               />
-              <label htmlFor={id} className="text-lg cursor-pointer">
+              <label
+                htmlFor={id}
+                className={cn(
+                  "text-lg cursor-pointer",
+                  !quantity ? "cursor-not-allowed" : ""
+                )}
+              >
                 {name}
               </label>
-              <div className="text-xs text-muted-foreground self-end">{`Qté dispo: ${quantity}`}</div>
+              <div
+                className={cn(
+                  "text-xs text-muted-foreground self-end",
+                  !quantity ? "text-destructive" : ""
+                )}
+              >{`Qté dispo: ${quantity}`}</div>
             </li>
           ))}
         </ul>
