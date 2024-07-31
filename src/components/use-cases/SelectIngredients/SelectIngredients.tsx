@@ -89,7 +89,7 @@ export function SelectIngredients({
                 }}
                 className="self-start"
               />
-              <label htmlFor={id} className="text-lg">
+              <label htmlFor={id} className="text-lg cursor-pointer">
                 {name}
               </label>
               <div className="text-xs text-muted-foreground self-end">{`Qté dispo: ${quantity}`}</div>
