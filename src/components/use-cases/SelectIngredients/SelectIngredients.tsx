@@ -92,7 +92,7 @@ export function SelectIngredients({
               <label htmlFor={id} className="text-lg">
                 {name}
               </label>
-              <div className="text-xs text-muted-foreground self-end">{`Qté rest.: ${quantity}`}</div>
+              <div className="text-xs text-muted-foreground self-end">{`Qté dispo: ${quantity}`}</div>
             </li>
           ))}
         </ul>

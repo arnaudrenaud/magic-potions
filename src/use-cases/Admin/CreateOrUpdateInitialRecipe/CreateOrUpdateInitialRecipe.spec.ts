@@ -33,7 +33,9 @@ describe("CreateOrUpdateInitialRecipe", () => {
           name: "Nouvelle recette",
           ingredientNames: ["Inconnu au bataillon", "Autre", "Autre"],
         })
-      ).rejects.toThrow(INGREDIENT_EXCEPTIONS.INGREDIENT_NOT_FOUND.message);
+      ).rejects.toThrow(
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO.message
+      );
     });
   });
 
