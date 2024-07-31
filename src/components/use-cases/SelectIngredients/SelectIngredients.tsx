@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { discoverRecipe } from "@/app/api-queries/discoverRecipe";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
+import { NUMBER_OF_INGREDIENTS_IN_RECIPE } from "@/domain/Recipe/Recipe";
 
 export function SelectIngredients({
   ingredients,
@@ -22,10 +23,22 @@ export function SelectIngredients({
     [ingredientId: string]: boolean;
   }>({});
   const toggleIngredientSelected = (ingredientId: string) => {
-    setSelection({
-      ...selection,
-      [ingredientId]: !Boolean(selection[ingredientId]),
-    });
+    if (
+      getSelectedIngredientIds().length < NUMBER_OF_INGREDIENTS_IN_RECIPE ||
+      selection[ingredientId]
+    ) {
+      setSelection({
+        ...selection,
+        [ingredientId]: !Boolean(selection[ingredientId]),
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description:
+          RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message,
+      });
+    }
   };
 
   const getSelectedIngredientIds = () => {
@@ -84,8 +97,10 @@ export function SelectIngredients({
             >
               <Checkbox
                 id={id}
+                defaultChecked={false}
                 checked={selection[id]}
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
                   toggleIngredientSelected(id);
                 }}
                 className="self-start"
@@ -101,11 +116,12 @@ export function SelectIngredients({
           className="fixed right-4 lg:right-10 bottom-20 lg:bottom-24 w-36 h-16"
           disabled={
             mutationSubmission.isPending ||
-            getSelectedIngredientIds().length < 3
+            getSelectedIngredientIds().length < NUMBER_OF_INGREDIENTS_IN_RECIPE
           }
         >
           <div className="text-xs">
-            ({getSelectedIngredientIds().length}/3){" "}
+            ({getSelectedIngredientIds().length}/
+            {NUMBER_OF_INGREDIENTS_IN_RECIPE}){" "}
             <span className="text-lg">Valider</span>
           </div>
         </Button>

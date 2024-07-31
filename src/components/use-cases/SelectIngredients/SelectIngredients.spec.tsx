@@ -74,6 +74,69 @@ describe("SelectIngredients", () => {
     });
   });
 
+  describe("when three ingredients are selected, selecting a fourth ingredient", () => {
+    it("does not select fourth ingredient, shows toast message with error", async () => {
+      const user = userEvent.setup();
+      render(
+        <ReactQueryProvider>
+          <SelectIngredients
+            ingredients={[
+              { id: "0", name: "Argent", quantity: 5 },
+              { id: "1", name: "Bave de lama", quantity: 5 },
+              { id: "2", name: "Épine de hérisson", quantity: 5 },
+              { id: "3", name: "Plume de griffon", quantity: 5 },
+            ]}
+          />
+        </ReactQueryProvider>
+      );
+
+      await user.click(screen.getAllByRole("checkbox")[0]);
+      await user.click(screen.getAllByRole("checkbox")[1]);
+      await user.click(screen.getAllByRole("checkbox")[2]);
+      await user.click(screen.getAllByRole("checkbox")[3]);
+
+      await waitFor(() => {
+        expect(mockToast).toHaveBeenCalledWith({
+          variant: "destructive",
+          title: "Erreur",
+          description:
+            RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message,
+        });
+      });
+      await waitFor(() => {
+        expect(screen.getAllByRole("checkbox")[3]).not.toBeChecked();
+      });
+    });
+  });
+
+  describe("when three ingredients are selected, selecting a fourth ingredient then unselecting another one", () => {
+    it("unselects ingredient", async () => {
+      const user = userEvent.setup();
+      render(
+        <ReactQueryProvider>
+          <SelectIngredients
+            ingredients={[
+              { id: "0", name: "Argent", quantity: 5 },
+              { id: "1", name: "Bave de lama", quantity: 5 },
+              { id: "2", name: "Épine de hérisson", quantity: 5 },
+              { id: "3", name: "Plume de griffon", quantity: 5 },
+            ]}
+          />
+        </ReactQueryProvider>
+      );
+
+      await user.click(screen.getAllByRole("checkbox")[0]);
+      await user.click(screen.getAllByRole("checkbox")[1]);
+      await user.click(screen.getAllByRole("checkbox")[2]);
+      await user.click(screen.getAllByRole("checkbox")[3]);
+
+      await user.click(screen.getAllByRole("checkbox")[2]);
+      await waitFor(() => {
+        expect(screen.getAllByRole("checkbox")[2]).not.toBeChecked();
+      });
+    });
+  });
+
   describe("when submitting form and server responds with success", () => {
     it("refreshes data, shows toast message with discovered recipe, resets form", async () => {
       mockDiscoverRecipe.mockResolvedValue({

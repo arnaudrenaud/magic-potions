@@ -10,3 +10,5 @@ export type Recipe = {
 export type RecipeWithIngredients = Recipe & {
   ingredients: Ingredient[];
 };
+
+export const NUMBER_OF_INGREDIENTS_IN_RECIPE = 3;
