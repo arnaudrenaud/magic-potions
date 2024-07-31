@@ -195,10 +195,9 @@ describe("SelectIngredients", () => {
         });
       });
 
-      // TODO: fix test: checkbox still appears checked after resetting form
-      // await waitFor(() => {
-      //   expect(screen.getAllByRole("checkbox")[0]).not.toBeChecked();
-      // });
+      await waitFor(() => {
+        expect(screen.getAllByRole("checkbox")[0]).not.toBeChecked();
+      });
     });
   });
 
