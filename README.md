@@ -5,7 +5,7 @@ Dependencies :
 - Node.js (version 18+)
 - Make
 
-## Getting started
+## Run app
 
 ### Install dependencies
 
@@ -33,6 +33,14 @@ Seed initial ingredients and recipes to the database:
 make seed-database
 ```
 
+### Start production server
+
+```
+make start-prod
+```
+
+## Develop
+
 ### Start development server
 
 ```
@@ -47,7 +55,7 @@ After updating database schema (`prisma/schema.prisma`):
 make generate-migrate-database
 ```
 
-## Run tests
+### Run tests
 
 Run tests against an isolated, disposable database (`prisma/db.test.sqlite`):
 

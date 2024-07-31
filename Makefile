@@ -5,6 +5,10 @@ install:
 start-dev:
 	npm run dev
 
+start-prod:
+	npm run build
+	npm run start
+
 test-watch:
 	npm run push-schema-to-test-database
 	npm run test:watch

@@ -5,6 +5,7 @@ import GetIngredients from "@/use-cases/User/GetIngredients/GetIngredients";
 const ingredientrepository = new PrismaIngredientRepository();
 const getIngredients = new GetIngredients(ingredientrepository);
 
+export const dynamic = "force-dynamic";
 export default async function Home() {
   const ingredients = await getIngredients.run();
 

@@ -4,6 +4,7 @@ import GetRecipes from "@/use-cases/User/GetRecipes/GetRecipes";
 const recipeRepository = new PrismaRecipeRepository();
 const getRecipes = new GetRecipes(recipeRepository);
 
+export const dynamic = "force-dynamic";
 export default async function Discoveries() {
   const recipes = await getRecipes.run();
 
