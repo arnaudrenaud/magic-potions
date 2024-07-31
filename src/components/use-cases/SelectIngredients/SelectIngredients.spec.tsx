@@ -23,6 +23,31 @@ jest.mock("../../ui/use-toast", () => ({
 }));
 
 describe("SelectIngredients", () => {
+  describe("when less than three ingredients are selected", () => {
+    it("displays disabled Submit button", async () => {
+      const user = userEvent.setup();
+      render(
+        <ReactQueryProvider>
+          <SelectIngredients
+            ingredients={[
+              { id: "0", name: "Argent", quantity: 5 },
+              { id: "1", name: "Bave de lama", quantity: 5 },
+              { id: "2", name: "Épine de hérisson", quantity: 5 },
+              { id: "3", name: "Plume de griffon", quantity: 5 },
+            ]}
+          />
+        </ReactQueryProvider>
+      );
+
+      await user.click(screen.getAllByRole("checkbox")[0]);
+      await user.click(screen.getAllByRole("checkbox")[1]);
+
+      await waitFor(() => {
+        expect(screen.getByText("Valider")).toBeDisabled();
+      });
+    });
+  });
+
   describe("when submitting form and server responds with success", () => {
     it("refreshes data, shows toast message with discovered recipe, resets form", async () => {
       mockDiscoverRecipe.mockResolvedValue({

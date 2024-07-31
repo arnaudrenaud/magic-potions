@@ -99,7 +99,10 @@ export function SelectIngredients({
         </ul>
         <Button
           className="fixed right-4 lg:right-10 bottom-20 lg:bottom-24 p-8 text-lg"
-          disabled={mutationSubmission.isPending}
+          disabled={
+            mutationSubmission.isPending ||
+            getSelectedIngredientIds().length < 3
+          }
         >
           Valider
         </Button>
