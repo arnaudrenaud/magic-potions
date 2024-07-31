@@ -30,7 +30,7 @@ export default function RootLayout({
         >
           <ReactQueryProvider>
             <Navigation />
-            <div className="m-auto max-w-6xl p-6 pb-[80px] md:p-8 md:pb-[88px] lg:pb-0 lg:pl-[200px]">
+            <div className="m-auto max-w-6xl p-6 pb-[80px] md:p-8 md:pb-[88px] lg:pb-8 lg:pl-[200px]">
               {children}
             </div>
           </ReactQueryProvider>
