@@ -48,6 +48,7 @@ export function SelectIngredients({
         title: "Bravo !",
         description: `Vous avez découvert la ${discoveredRecipe.name}.`,
       });
+      setSelection({});
     },
     onError: ({ message }) => {
       if (
