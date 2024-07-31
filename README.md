@@ -1,5 +1,7 @@
 # Magic Potions
 
+![Homepage screenshot](./public/homepage-screenshot.png)
+
 Dependencies :
 
 - Node.js (version 18+)
