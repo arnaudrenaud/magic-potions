@@ -31,6 +31,17 @@ describe("DiscoverRecipe", () => {
     await clearDatabase();
   });
 
+  describe("if less or more than three ingredients are passed", () => {
+    it("throws exception RECIPE_MUST_HAVE_THREE_INGREDIENTS", async () => {
+      const basilic = await createInitialIngredient.run({ name: "Basilic" });
+      const persil = await createInitialIngredient.run({ name: "Persil" });
+
+      await expect(discoverRecipe.run([basilic.id, persil.id])).rejects.toThrow(
+        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message
+      );
+    });
+  });
+
   describe("if no recipe with the same ingredients exists", () => {
     it("throws exception RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED", async () => {
       const basilic = await createInitialIngredient.run({ name: "Basilic" });

@@ -10,6 +10,12 @@ export default class DiscoverRecipe {
   ) {}
 
   async run(ingredientIds: string[]): Promise<Recipe> {
+    if (ingredientIds.length !== 3) {
+      throw new Error(
+        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message
+      );
+    }
+
     const existingRecipe =
       await this.recipeRepository.findRecipeByIngredientIds(ingredientIds);
 
