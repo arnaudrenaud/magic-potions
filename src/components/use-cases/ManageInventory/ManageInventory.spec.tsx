@@ -25,19 +25,32 @@ jest.mock("../../ui/use-toast", () => ({
 }));
 
 describe("ManageInventory", () => {
+  describe("when an ingredient has quantity 0", () => {
+    it("displays disabled button '-'", async () => {
+      const user = userEvent.setup();
+      render(
+        <ReactQueryProvider>
+          <ManageInventory
+            ingredients={[{ id: "id-argent", name: "Argent", quantity: 0 }]}
+          />
+        </ReactQueryProvider>
+      );
+
+      expect(screen.getByText("-")).toBeDisabled();
+    });
+  });
+
   describe("when clicking button '-' and server responds with error", () => {
     it("shows toast message with error", async () => {
       mockDecrementIngredientQuantity.mockRejectedValue(
-        new Error(
-          INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO.message
-        )
+        new Error("Server unreachable")
       );
 
       const user = userEvent.setup();
       render(
         <ReactQueryProvider>
           <ManageInventory
-            ingredients={[{ id: "id-argent", name: "Argent", quantity: 0 }]}
+            ingredients={[{ id: "id-argent", name: "Argent", quantity: 2 }]}
           />
         </ReactQueryProvider>
       );
@@ -53,9 +66,7 @@ describe("ManageInventory", () => {
         expect(mockToast).toHaveBeenCalledWith({
           variant: "destructive",
           title: "Erreur",
-          description:
-            INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO
-              .message,
+          description: "Server unreachable",
         });
       });
     });
@@ -115,6 +126,7 @@ describe("ManageInventory", () => {
       });
     });
   });
+
   describe("when clicking button '+' and server responds with success", () => {
     it("refreshes data", async () => {
       mockIncrementIngredientQuantity.mockResolvedValue({

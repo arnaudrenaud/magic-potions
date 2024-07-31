@@ -5,6 +5,7 @@ import { incrementIngredientQuantity } from "@/app/api-queries/incrementIngredie
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Ingredient } from "@/domain/Ingredient/Ingredient";
+import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -62,11 +63,17 @@ export function ManageInventory({
                 onClick={() => {
                   decrementMutation.mutate(ingredient.id);
                 }}
+                disabled={!ingredient.quantity}
                 className="hover:bg-primary"
               >
                 -
               </Button>
-              <div className="w-[1.5rem] text-center">
+              <div
+                className={cn(
+                  "w-[1.5rem] text-center",
+                  !ingredient.quantity ? "text-destructive" : ""
+                )}
+              >
                 {ingredient.quantity}
               </div>
               <Button
