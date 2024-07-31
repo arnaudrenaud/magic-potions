@@ -12,7 +12,7 @@ export default class DecrementIngredientQuantity {
 
     if (ingredient.quantity === 0) {
       throw new Error(
-        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO.message
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO
       );
     }
     return this.ingredientRepository.decrementIngredientQuantity(ingredientId);

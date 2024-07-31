@@ -1,10 +1,16 @@
-export const INGREDIENT_EXCEPTIONS = {
-  INGREDIENT_NOT_FOUND: { message: "Ingrédient inexistant" },
-  INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO: {
-    message: "La quantité d'ingrédient doit être supérieure à zéro",
-  },
-  INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE: {
-    message:
-      "La quantité d'ingrédient doit être supérieure à zéro pour découvrir ou créer une potion",
-  },
+export enum INGREDIENT_EXCEPTIONS {
+  INGREDIENT_NOT_FOUND = "INGREDIENT_NOT_FOUND",
+  INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO = "INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO",
+  INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE = "INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE",
+}
+
+export const INGREDIENT_EXCEPTIONS_USER_FACING: Record<
+  INGREDIENT_EXCEPTIONS,
+  string
+> = {
+  [INGREDIENT_EXCEPTIONS.INGREDIENT_NOT_FOUND]: "Ingrédient inexistant",
+  [INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO]:
+    "La quantité d'ingrédient doit être supérieure ou égale à zéro",
+  [INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE]:
+    "La quantité d'ingrédient doit être supérieure à zéro pour découvrir ou créer une potion",
 };

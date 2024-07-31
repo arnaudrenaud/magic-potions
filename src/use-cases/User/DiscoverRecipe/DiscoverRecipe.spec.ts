@@ -38,7 +38,7 @@ describe("DiscoverRecipe", () => {
       const persil = await createInitialIngredient.run({ name: "Persil" });
 
       await expect(discoverRecipe.run([basilic.id, persil.id])).rejects.toThrow(
-        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message
+        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS
       );
     });
   });
@@ -60,7 +60,6 @@ describe("DiscoverRecipe", () => {
         discoverRecipe.run([basilic.id, persil.id, coriandre.id])
       ).rejects.toThrow(
         INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE
-          .message
       );
     });
   });
@@ -76,7 +75,7 @@ describe("DiscoverRecipe", () => {
       await expect(
         discoverRecipe.run([basilic.id, persil.id, coriandre.id])
       ).rejects.toThrow(
-        RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED.message
+        RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED
       );
     });
   });
@@ -98,7 +97,7 @@ describe("DiscoverRecipe", () => {
 
         await expect(
           discoverRecipe.run([basilic.id, persil.id, coriandre.id])
-        ).rejects.toThrow(RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED.message);
+        ).rejects.toThrow(RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED);
       });
     });
 

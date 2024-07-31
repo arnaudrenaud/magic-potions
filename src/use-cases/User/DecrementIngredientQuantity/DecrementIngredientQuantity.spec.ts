@@ -27,7 +27,7 @@ describe("DecrementIngredientQuantity", () => {
       await expect(
         decrementIngredientQuantity.run(ingredient.id)
       ).rejects.toThrow(
-        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO.message
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO
       );
     });
   });

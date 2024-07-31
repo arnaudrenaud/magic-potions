@@ -25,18 +25,16 @@ export default class CreateUserRecipe {
       ).run(ingredientIds, 1);
     if (!areIngredientQuantitiesSufficient) {
       throw new Error(
-        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE.message
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE
       );
     }
 
     if (await this.recipeRepository.findRecipeByName(name)) {
-      throw new Error(
-        RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS.message
-      );
+      throw new Error(RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS);
     }
     if (await this.recipeRepository.findRecipeByIngredientIds(ingredientIds)) {
       throw new Error(
-        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS.message
+        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS
       );
     }
 

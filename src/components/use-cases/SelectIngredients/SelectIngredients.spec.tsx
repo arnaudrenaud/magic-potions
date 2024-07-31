@@ -3,7 +3,10 @@ import ResizeObserver from "resize-observer-polyfill";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
+import {
+  RECIPE_EXCEPTIONS,
+  RECIPE_EXCEPTIONS_USER_FACING,
+} from "@/domain/Recipe/recipe-exceptions";
 import { SelectIngredients } from "@/components/use-cases/SelectIngredients/SelectIngredients";
 
 global.ResizeObserver = ResizeObserver;
@@ -116,7 +119,9 @@ describe("SelectIngredients", () => {
           variant: "destructive",
           title: "Erreur",
           description:
-            RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message,
+            RECIPE_EXCEPTIONS_USER_FACING[
+              RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS
+            ],
         });
       });
       await waitFor(() => {
@@ -204,9 +209,7 @@ describe("SelectIngredients", () => {
   describe("when submitting form and server responds with exception RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED", () => {
     it("shows dialog to ask user if they want to create new recipe", async () => {
       mockDiscoverRecipe.mockRejectedValue(
-        new Error(
-          RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED.message
-        )
+        new Error(RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED)
       );
 
       const user = userEvent.setup();
@@ -239,7 +242,7 @@ describe("SelectIngredients", () => {
   describe("when submitting form and server responds with other error", () => {
     it("shows toast message with error", async () => {
       mockDiscoverRecipe.mockRejectedValue(
-        new Error(RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED.message)
+        new Error(RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED)
       );
 
       const user = userEvent.setup();
@@ -265,7 +268,10 @@ describe("SelectIngredients", () => {
         expect(mockToast).toHaveBeenCalledWith({
           variant: "destructive",
           title: "Erreur",
-          description: RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED.message,
+          description:
+            RECIPE_EXCEPTIONS_USER_FACING[
+              RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED
+            ],
         });
       });
     });

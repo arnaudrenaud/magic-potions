@@ -10,7 +10,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { discoverRecipe } from "@/app/api-queries/discoverRecipe";
-import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
+import {
+  RECIPE_EXCEPTIONS,
+  RECIPE_EXCEPTIONS_USER_FACING,
+} from "@/domain/Recipe/recipe-exceptions";
 import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
 import { NUMBER_OF_INGREDIENTS_IN_RECIPE } from "@/domain/Recipe/Recipe";
 import { cn } from "@/lib/utils";
@@ -37,7 +40,9 @@ export function SelectIngredients({
         variant: "destructive",
         title: "Erreur",
         description:
-          RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message,
+          RECIPE_EXCEPTIONS_USER_FACING[
+            RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS
+          ],
       });
     }
   };
@@ -66,15 +71,16 @@ export function SelectIngredients({
     },
     onError: ({ message }) => {
       if (
-        message ===
-        RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED.message
+        message === RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED
       ) {
         setShouldShowCreateRecipeDialog(true);
       } else {
         toast({
           variant: "destructive",
           title: "Erreur",
-          description: message,
+          description:
+            RECIPE_EXCEPTIONS_USER_FACING[message as RECIPE_EXCEPTIONS] ||
+            message,
         });
       }
     },

@@ -21,6 +21,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Ingredient } from "@/domain/Ingredient/Ingredient";
+import {
+  RECIPE_EXCEPTIONS,
+  RECIPE_EXCEPTIONS_USER_FACING,
+} from "@/domain/Recipe/recipe-exceptions";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -53,7 +57,9 @@ export function CreateRecipe({
       });
     },
     onError: ({ message }) => {
-      setErrorMessage(message);
+      setErrorMessage(
+        RECIPE_EXCEPTIONS_USER_FACING[message as RECIPE_EXCEPTIONS] || message
+      );
     },
   });
 

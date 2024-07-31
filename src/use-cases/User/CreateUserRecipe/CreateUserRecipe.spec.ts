@@ -35,7 +35,7 @@ describe("CreateUserRecipe", () => {
   describe("if recipe is not valid", () => {
     it("throws exception", async () => {
       await expect(createUserRecipe.run("", [])).rejects.toThrow(
-        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME.message
+        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME
       );
     });
   });
@@ -57,7 +57,6 @@ describe("CreateUserRecipe", () => {
         createUserRecipe.run("Nom", [basilic.id, persil.id, coriandre.id])
       ).rejects.toThrow(
         INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE
-          .message
       );
     });
   });
@@ -83,9 +82,7 @@ describe("CreateUserRecipe", () => {
           persil.id,
           coriandre.id,
         ])
-      ).rejects.toThrow(
-        RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS.message
-      );
+      ).rejects.toThrow(RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS);
     });
   });
 
@@ -108,7 +105,7 @@ describe("CreateUserRecipe", () => {
           persil.id,
         ])
       ).rejects.toThrow(
-        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS.message
+        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS
       );
     });
   });

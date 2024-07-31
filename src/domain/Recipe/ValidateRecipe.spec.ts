@@ -8,7 +8,7 @@ describe("ValidateRecipe", () => {
     it("throws exception RECIPE_MUST_HAVE_A_NAME", () => {
       expect(() => {
         validateRecipe.run("", 3);
-      }).toThrow(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME.message);
+      }).toThrow(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME);
     });
   });
 
@@ -16,7 +16,7 @@ describe("ValidateRecipe", () => {
     it("throws exception RECIPE_MUST_HAVE_THREE_INGREDIENTS", () => {
       expect(() => {
         validateRecipe.run("Philtre", 2);
-      }).toThrow(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message);
+      }).toThrow(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS);
     });
   });
 

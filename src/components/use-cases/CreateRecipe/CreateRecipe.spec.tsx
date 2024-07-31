@@ -1,7 +1,10 @@
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
 import { Ingredient } from "@/domain/Ingredient/Ingredient";
-import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
+import {
+  RECIPE_EXCEPTIONS,
+  RECIPE_EXCEPTIONS_USER_FACING,
+} from "@/domain/Recipe/recipe-exceptions";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -140,7 +143,7 @@ describe("CreateRecipe", () => {
       const onClose = jest.fn();
       const onSuccess = jest.fn();
       mockCreateUserRecipe.mockRejectedValue(
-        new Error(RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS.message)
+        new Error(RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS)
       );
 
       const ingredients: Ingredient[] = [
@@ -170,7 +173,9 @@ describe("CreateRecipe", () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS.message
+            RECIPE_EXCEPTIONS_USER_FACING[
+              RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS
+            ]
           )
         ).toBeInTheDocument();
       });

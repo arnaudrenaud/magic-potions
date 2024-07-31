@@ -13,9 +13,7 @@ export default class DiscoverRecipe {
 
   async run(ingredientIds: string[]): Promise<Recipe> {
     if (ingredientIds.length !== 3) {
-      throw new Error(
-        RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS.message
-      );
+      throw new Error(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS);
     }
     const areIngredientQuantitiesSufficient =
       await new AreIngredientQuantitiesSufficient(
@@ -23,7 +21,7 @@ export default class DiscoverRecipe {
       ).run(ingredientIds, 1);
     if (!areIngredientQuantitiesSufficient) {
       throw new Error(
-        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE.message
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_INSUFFICIENT_FOR_RECIPE
       );
     }
 
@@ -32,11 +30,11 @@ export default class DiscoverRecipe {
 
     if (!existingRecipe) {
       throw new Error(
-        RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED.message
+        RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED
       );
     }
     if (existingRecipe.isDiscovered) {
-      throw new Error(RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED.message);
+      throw new Error(RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED);
     }
 
     for (const ingredientId of ingredientIds) {

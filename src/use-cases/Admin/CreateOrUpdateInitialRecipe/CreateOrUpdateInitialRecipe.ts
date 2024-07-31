@@ -35,7 +35,7 @@ export default class CreateOrUpdateInitialRecipe {
       await this.recipeRepository.findRecipeByIngredientIds(ingredientIds);
     if (existingRecipeWithSameIngredients) {
       throw new Error(
-        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS.message
+        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS
       );
     }
 

@@ -1,18 +1,23 @@
-export const RECIPE_EXCEPTIONS = {
-  RECIPE_MUST_HAVE_A_NAME: { message: "La potion doit avoir un nom" },
-  RECIPE_MUST_HAVE_THREE_INGREDIENTS: {
-    message: "La potion doit comporter trois ingrédients",
-  },
-  RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED: {
-    message: "La potion doit d'abord être créée",
-  },
-  RECIPE_ALREADY_DISCOVERED: {
-    message: "Cette potion a déjà été découverte",
-  },
-  RECIPE_WITH_NAME_ALREADY_EXISTS: {
-    message: "Une potion avec le même nom existe déjà",
-  },
-  RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS: {
-    message: "Une potion avec les mêmes ingrédients existe déjà",
-  },
-};
+export enum RECIPE_EXCEPTIONS {
+  RECIPE_MUST_HAVE_A_NAME = "RECIPE_MUST_HAVE_A_NAME",
+  RECIPE_MUST_HAVE_THREE_INGREDIENTS = "RECIPE_MUST_HAVE_THREE_INGREDIENTS",
+  RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED = "RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED",
+  RECIPE_ALREADY_DISCOVERED = "RECIPE_ALREADY_DISCOVERED",
+  RECIPE_WITH_NAME_ALREADY_EXISTS = "RECIPE_WITH_NAME_ALREADY_EXISTS",
+  RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS = "RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS",
+}
+
+export const RECIPE_EXCEPTIONS_USER_FACING: Record<RECIPE_EXCEPTIONS, string> =
+  {
+    [RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME]: "La potion doit avoir un nom",
+    [RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS]:
+      "La potion doit comporter trois ingrédients",
+    [RECIPE_EXCEPTIONS.RECIPE_MUST_BE_CREATED_BEFORE_DISCOVERED]:
+      "La potion doit d'abord être créée",
+    [RECIPE_EXCEPTIONS.RECIPE_ALREADY_DISCOVERED]:
+      "Cette potion a déjà été découverte",
+    [RECIPE_EXCEPTIONS.RECIPE_WITH_NAME_ALREADY_EXISTS]:
+      "Une potion avec le même nom existe déjà",
+    [RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS]:
+      "Une potion avec les mêmes ingrédients existe déjà",
+  };

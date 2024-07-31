@@ -16,7 +16,7 @@ export default class PrismaIngredientRepository
     try {
       return await this.client.ingredient.findUniqueOrThrow({ where: { id } });
     } catch (error) {
-      throw new Error(INGREDIENT_EXCEPTIONS.INGREDIENT_NOT_FOUND.message);
+      throw new Error(INGREDIENT_EXCEPTIONS.INGREDIENT_NOT_FOUND);
     }
   }
 
@@ -38,7 +38,7 @@ export default class PrismaIngredientRepository
       });
     } catch (error) {
       throw new Error(
-        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO.message
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO
       );
     }
   }

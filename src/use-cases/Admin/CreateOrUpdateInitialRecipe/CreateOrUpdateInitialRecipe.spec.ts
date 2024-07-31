@@ -34,7 +34,7 @@ describe("CreateOrUpdateInitialRecipe", () => {
           ingredientNames: ["Inconnu au bataillon", "Autre", "Autre"],
         })
       ).rejects.toThrow(
-        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO.message
+        INGREDIENT_EXCEPTIONS.INGREDIENT_QUANTITY_MUST_BE_AT_LEAST_ZERO
       );
     });
   });
@@ -43,7 +43,7 @@ describe("CreateOrUpdateInitialRecipe", () => {
     it("throws exception", async () => {
       await expect(
         createOrUpdateInitialRecipe.run({ name: "", ingredientNames: [] })
-      ).rejects.toThrow(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME.message);
+      ).rejects.toThrow(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_A_NAME);
     });
   });
 
@@ -163,7 +163,7 @@ describe("CreateOrUpdateInitialRecipe", () => {
           ingredientNames: ["Basilic", "Persil", "Coriandre"],
         })
       ).rejects.toThrow(
-        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS.message
+        RECIPE_EXCEPTIONS.RECIPE_WITH_SAME_INGREDIENTS_ALREADY_EXISTS
       );
     });
 

@@ -1,3 +1,4 @@
+import { handleError } from "@/app/api/utils";
 import PrismaIngredientRepository from "@/infrastructure/repositories/prisma/PrismaIngredientRepository";
 import PrismaRecipeRepository from "@/infrastructure/repositories/prisma/PrismaRecipeRepository";
 import { getErrorMessage } from "@/lib/utils";
@@ -30,7 +31,7 @@ const createUserRecipe = new CreateUserRecipe(
   prismaIngredientRepository
 );
 
-export async function POST(request: Request) {
+export const POST = handleError(async (request: Request) => {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get("action");
 
@@ -49,18 +50,11 @@ export async function POST(request: Request) {
         );
       }
 
-      try {
-        return Response.json({
-          discoveredRecipe: await discoverRecipe.run(
-            discoverQuery.data.ingredientIds
-          ),
-        });
-      } catch (error) {
-        return Response.json(
-          { errorMessage: getErrorMessage(error) },
-          { status: 400 }
-        );
-      }
+      return Response.json({
+        discoveredRecipe: await discoverRecipe.run(
+          discoverQuery.data.ingredientIds
+        ),
+      });
 
     case ActionType.CREATE:
       const createQuery = CreateUserRecipeArguments.safeParse(
@@ -76,19 +70,12 @@ export async function POST(request: Request) {
         );
       }
 
-      try {
-        return Response.json({
-          createdRecipe: await createUserRecipe.run(
-            createQuery.data.name,
-            createQuery.data.ingredientIds
-          ),
-        });
-      } catch (error) {
-        return Response.json(
-          { errorMessage: getErrorMessage(error) },
-          { status: 400 }
-        );
-      }
+      return Response.json({
+        createdRecipe: await createUserRecipe.run(
+          createQuery.data.name,
+          createQuery.data.ingredientIds
+        ),
+      });
 
     default:
       return Response.json(
@@ -99,4 +86,4 @@ export async function POST(request: Request) {
         { status: 400 }
       );
   }
-}
+});
