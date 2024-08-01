@@ -1,5 +1,5 @@
-import { InitialIngredient } from "@/domain/constants/initial-ingredients";
 import { INGREDIENT_INITIAL_QUANTITY } from "@/domain/Ingredient/Ingredient";
+import { InitialIngredient } from "@/domain/Ingredient/initial-ingredients";
 import { IngredientRepositoryInterface } from "@/use-cases/_interfaces/IngredientRepositoryInterface";
 
 export default class CreateInitialIngredient {

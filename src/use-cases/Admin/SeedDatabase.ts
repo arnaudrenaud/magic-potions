@@ -1,5 +1,5 @@
-import { clearDatabase, prismaClient } from "@/adapters/prismaClient";
-import { initialIngredients } from "@/domain/constants/initial-ingredients";
+import { prismaClient } from "@/adapters/prismaClient";
+import { initialIngredients } from "@/domain/Ingredient/initial-ingredients";
 import { initialRecipes } from "@/domain/Recipe/initial-recipes";
 import PrismaIngredientRepository from "@/infrastructure/repositories/prisma/PrismaIngredientRepository";
 import PrismaRecipeRepository from "@/infrastructure/repositories/prisma/PrismaRecipeRepository";
