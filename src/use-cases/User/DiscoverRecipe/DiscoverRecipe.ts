@@ -1,5 +1,8 @@
 import { INGREDIENT_EXCEPTIONS } from "@/domain/Ingredient/ingredient-exceptions";
-import { Recipe } from "@/domain/Recipe/Recipe";
+import {
+  NUMBER_OF_INGREDIENTS_IN_RECIPE,
+  Recipe,
+} from "@/domain/Recipe/Recipe";
 import { RECIPE_EXCEPTIONS } from "@/domain/Recipe/recipe-exceptions";
 import { IngredientRepositoryInterface } from "@/use-cases/_interfaces/IngredientRepositoryInterface";
 import { RecipeRepositoryInterface } from "@/use-cases/_interfaces/RecipeRepositoryInterface";
@@ -12,7 +15,7 @@ export default class DiscoverRecipe {
   ) {}
 
   async run(ingredientIds: string[]): Promise<Recipe> {
-    if (ingredientIds.length !== 3) {
+    if (ingredientIds.length !== NUMBER_OF_INGREDIENTS_IN_RECIPE) {
       throw new Error(RECIPE_EXCEPTIONS.RECIPE_MUST_HAVE_THREE_INGREDIENTS);
     }
     const areIngredientQuantitiesSufficient =
