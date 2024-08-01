@@ -115,7 +115,7 @@ export function SelectIngredients({
                 htmlFor={id}
                 className={cn(
                   "text-lg cursor-pointer",
-                  !quantity ? "cursor-not-allowed" : ""
+                  !quantity ? "cursor-not-allowed text-muted-foreground" : ""
                 )}
               >
                 {name}
