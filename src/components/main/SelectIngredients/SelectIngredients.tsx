@@ -15,7 +15,7 @@ import {
   RECIPE_EXCEPTIONS_USER_FACING,
 } from "@/domain/Recipe/recipe-exceptions";
 import { NUMBER_OF_INGREDIENTS_IN_RECIPE } from "@/domain/Recipe/Recipe";
-import { cn } from "@/lib/utils";
+import { cn, getUserFacingErrorMessage } from "@/lib/utils";
 import { CreateRecipe } from "@/components/main/CreateRecipe/CreateRecipe";
 
 export function SelectIngredients({
@@ -78,9 +78,7 @@ export function SelectIngredients({
         toast({
           variant: "destructive",
           title: "Erreur",
-          description:
-            RECIPE_EXCEPTIONS_USER_FACING[message as RECIPE_EXCEPTIONS] ||
-            message,
+          description: getUserFacingErrorMessage(message),
         });
       }
     },

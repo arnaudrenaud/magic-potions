@@ -5,11 +5,7 @@ import { incrementIngredientQuantity } from "@/app/api-queries/incrementIngredie
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Ingredient } from "@/domain/Ingredient/Ingredient";
-import {
-  RECIPE_EXCEPTIONS,
-  RECIPE_EXCEPTIONS_USER_FACING,
-} from "@/domain/Recipe/recipe-exceptions";
-import { cn } from "@/lib/utils";
+import { cn, getUserFacingErrorMessage } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -30,9 +26,7 @@ export function ManageInventory({
       toast({
         variant: "destructive",
         title: "Erreur",
-        description:
-          RECIPE_EXCEPTIONS_USER_FACING[message as RECIPE_EXCEPTIONS] ||
-          message,
+        description: getUserFacingErrorMessage(message),
       });
     },
   });
