@@ -1,4 +1,4 @@
-import { SelectIngredients } from "@/components/use-cases/SelectIngredients/SelectIngredients";
+import { SelectIngredients } from "@/components/main/SelectIngredients/SelectIngredients";
 import PrismaIngredientRepository from "@/infrastructure/repositories/prisma/PrismaIngredientRepository";
 import GetIngredients from "@/use-cases/User/GetIngredients/GetIngredients";
 

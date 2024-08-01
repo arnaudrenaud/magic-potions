@@ -1,3 +1,3 @@
-import { PageLoading } from "@/components/full-page/PageLoading";
+import { PageLoading } from "@/components/common/PageLoading";
 
 export default PageLoading;

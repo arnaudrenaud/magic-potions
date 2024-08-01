@@ -1,6 +1,6 @@
 "use client";
 
-import { ElementWithIcon } from "@/components/ElementWithIcon";
+import { ElementWithIcon } from "@/components/common/ElementWithIcon";
 import { Blend, BookOpen, Package } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

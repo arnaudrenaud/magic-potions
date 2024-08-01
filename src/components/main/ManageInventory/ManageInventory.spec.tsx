@@ -1,5 +1,5 @@
+import { ManageInventory } from "@/components/main/ManageInventory/ManageInventory";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
-import { ManageInventory } from "@/components/use-cases/ManageInventory/ManageInventory";
 import { INGREDIENT_EXCEPTIONS } from "@/domain/Ingredient/ingredient-exceptions";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

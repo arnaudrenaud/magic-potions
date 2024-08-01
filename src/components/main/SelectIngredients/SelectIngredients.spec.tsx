@@ -7,7 +7,7 @@ import {
   RECIPE_EXCEPTIONS,
   RECIPE_EXCEPTIONS_USER_FACING,
 } from "@/domain/Recipe/recipe-exceptions";
-import { SelectIngredients } from "@/components/use-cases/SelectIngredients/SelectIngredients";
+import { SelectIngredients } from "@/components/main/SelectIngredients/SelectIngredients";
 
 global.ResizeObserver = ResizeObserver;
 

@@ -14,9 +14,9 @@ import {
   RECIPE_EXCEPTIONS,
   RECIPE_EXCEPTIONS_USER_FACING,
 } from "@/domain/Recipe/recipe-exceptions";
-import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
 import { NUMBER_OF_INGREDIENTS_IN_RECIPE } from "@/domain/Recipe/Recipe";
 import { cn } from "@/lib/utils";
+import { CreateRecipe } from "@/components/main/CreateRecipe/CreateRecipe";
 
 export function SelectIngredients({
   ingredients,

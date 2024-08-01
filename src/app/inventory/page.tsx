@@ -1,4 +1,4 @@
-import { ManageInventory } from "@/components/use-cases/ManageInventory/ManageInventory";
+import { ManageInventory } from "@/components/main/ManageInventory/ManageInventory";
 import PrismaIngredientRepository from "@/infrastructure/repositories/prisma/PrismaIngredientRepository";
 import GetIngredients from "@/use-cases/User/GetIngredients/GetIngredients";
 

@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 import { Toaster } from "@/components/ui/toaster";
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/navigation/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,5 +1,5 @@
+import { CreateRecipe } from "@/components/main/CreateRecipe/CreateRecipe";
 import { ReactQueryProvider } from "@/components/providers/react-query-provider";
-import { CreateRecipe } from "@/components/use-cases/CreateRecipe/CreateRecipe";
 import { Ingredient } from "@/domain/Ingredient/Ingredient";
 import {
   RECIPE_EXCEPTIONS,
